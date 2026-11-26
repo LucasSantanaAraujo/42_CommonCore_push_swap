@@ -1,4 +1,5 @@
 *.o
 *.a
-a.out
-*.exe
+push_swap
+checker
+tests/
