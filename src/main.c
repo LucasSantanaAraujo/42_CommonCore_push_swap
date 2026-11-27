@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucsanta <lucsanta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/25 15:03:26 by lucsanta          #+#    #+#             */
-/*   Updated: 2026/11/26 17:03:05 by lucsanta         ###   ########.fr       */
+/*   Updated: 2026/11/27 23:10:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,11 @@ static int	error(void)
 	return (1);
 }
 
-static int	parse_input(t_stack *a, int argc, char **argv)
+static int	parse_input(t_stack *a, int argc, char **argv, int start)
 {
 	char	*joined;
 	char	**numbers;
-	int		start;
 
-	start = 1;
-	if (ft_strncmp(argv[1], "--", 2) == 0)
-		start = 2;
 	if (start >= argc)
 		return (0);
 	joined = join_args(argc, argv, start);
@@ -45,14 +41,43 @@ static int	parse_input(t_stack *a, int argc, char **argv)
 	return (1);
 }
 
+static void	run_sort(t_ps *ps)
+{
+	if (is_sorted(&ps->a))
+		return ;
+	if (ps->a.size == 2)
+		sort_two(ps);
+	else if (ps->a.size == 3)
+		sort_three(ps);
+	else if (ps->strategy == MEDIUM)
+		sort_medium(ps);
+	else if (ps->strategy == COMPLEX)
+		sort_complex(ps);
+	else
+		sort_simple(ps);
+}
+
 int	main(int argc, char **argv)
 {
-	t_stack	a;
+	t_ps	ps;
+	int		start;
 
 	if (argc < 2)
 		return (0);
-	if (!parse_input(&a, argc, argv))
+	ft_bzero(&ps, sizeof(t_ps));
+	ps.strategy = ADAPTIVE;
+	if (!parse_flags(&ps, argc, argv, &start))
 		return (error());
-	stack_free(&a);
+	if (!parse_input(&ps.a, argc, argv, start))
+		return (error());
+	if (!stack_init(&ps.b, ps.a.size) || !normalize(&ps.a))
+	{
+		stack_free(&ps.a);
+		stack_free(&ps.b);
+		return (error());
+	}
+	run_sort(&ps);
+	stack_free(&ps.b);
+	stack_free(&ps.a);
 	return (0);
 }

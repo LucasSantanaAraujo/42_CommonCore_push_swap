@@ -2,4 +2,5 @@
 *.a
 push_swap
 checker
+checker_linux
 tests/

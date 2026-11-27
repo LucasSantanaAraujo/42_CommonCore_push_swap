@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucsanta <lucsanta@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/25 15:01:56 by lucsanta          #+#    #+#              #
-#    Updated: 2026/11/26 15:19:45 by lucsanta         ###   ########.fr        #
+#    Updated: 2026/11/27 23:07:54 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-CC = cc 
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
@@ -28,7 +28,19 @@ SRC_DIR = src
 SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/parsing.c \
 	   $(SRC_DIR)/stack.c \
-	   $(SRC_DIR)/input.c
+	   $(SRC_DIR)/input.c \
+	   $(SRC_DIR)/flags.c \
+	   $(SRC_DIR)/ops.c \
+	   $(SRC_DIR)/swap.c \
+	   $(SRC_DIR)/push.c \
+	   $(SRC_DIR)/rotate.c \
+	   $(SRC_DIR)/reverse_rotate.c \
+	   $(SRC_DIR)/sort_small.c \
+	   $(SRC_DIR)/sort_simple.c \
+	   $(SRC_DIR)/sort_complex.c \
+	   $(SRC_DIR)/sort_utils.c \
+	   $(SRC_DIR)/normalize.c \
+	   $(SRC_DIR)/sort_medium.c 
 
 OBJS = $(SRCS:.c=.o)
 
